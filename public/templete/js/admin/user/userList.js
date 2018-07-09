@@ -154,15 +154,13 @@ $(function(){
      * 获取模糊参数
      */
     function getSelectInfo(){
-        var nick_name = $.trim($(".search-area .nickname").val());
-        var subscribe = $.trim($(".search-area #subscribe").val());
-        var name = $.trim($(".search-area .name").val());
+        var user_name = $.trim($(".search-area .user_name").val());
         var phone = $.trim($(".search-area .phone").val());
+        var company = $.trim($(".search-area .company").val());
         var selectInfo = {
-            "nick_name":nick_name,
-            "name":name,
+            "user_name":user_name,
             "phone":phone,
-            "subscribe":subscribe
+            "company":company,
         };
         return selectInfo;
     }
@@ -192,36 +190,24 @@ $(function(){
                     currentPage = result.data.pageInfo.current_page;
                     var userList = result.data.dataList;
 
-                    html+='<tr><th class="th1">序号</th><th class="th2">头像</th><th class="th3">昵称</th><th class="th6">余额</th><th class="th6">姓名</th><th class="th5">性别</th><th class="th6">手机号</th><th class="th7">地址</th><th class="th10">关注时间</th><th class="th11">操作</th></tr>';
+                    html+='<tr><th class="th1">序号</th><th class="th3">用户名</th><th class="th6">电话</th><th class="th6">工作单位</th><th class="th10">注册时间</th><th class="th11">操作</th></tr>';
                     var colspan = $(html).find("th").length;
                     for(var i = 0; i < userList.length;i++){
                         var obj = userList[i];
                         var number = (pageIndex - 1)*pageSize + i + 1;//序号
-                        var head_url = obj.head_img_url;
-                        var account = obj.account;
-                        var subscribeTimes = obj.subscribe_times;
-                        var subscribe = (obj.subscribe == 1) ?"已关注":"未关注";
-                        var phone = obj.phone?obj.phone:"--";
-                        var nickname = obj.nick_name;
-                        var name = obj.name ?obj.name:"--";
-                        var sex = (obj.sex == 1)?"男":(obj.sex == 2?"女":"未知");//1男 2女 0未知
-                        var subscribe_time = obj.subscribe_time;
-                        var addr = obj.country+"-"+obj.province+"-"+obj.city;
-                        var points = obj.points;
-                        var balance = obj.balance||'0';
+                        var phone = obj.phone?obj.phone:"--"; // 联系电话
+                        var user_name = obj.user_name?obj.user_name:"--"; //用户名
+                        var company = obj.company?obj.company:"--";// 工作单位
+                        var add_time = obj.add_time?obj.add_time:"--";// 注册时间
+
+
                         var id = obj.id;
                         html+='<tr>'
                         		+'<td>'+number+'</td>'
-                        		+'<td>'+(head_url?'<img width="50" src="'+head_url+'">':'无头像')+'</td>'
-                        		+'<td><span class="limit-text" title="'+nickname+'">'+nickname+'</span></td>'
-                        		+'<td>'+balance+'</td>'
-                        		+'<td>'+name+'</td>'
-                        		+'<td>'+sex+'</td>'
+                        		+'<td><span class="limit-text" title="'+user_name+'">'+user_name+'</span></td>'
                         		+'<td>'+phone+'</td>'
-                        		+'<td><span class="limit-text" title="'+addr+'">'+addr+'</span></td>'
-
-                        		//+'<td>'+subscribeTimes+'</td>'
-                        		+'<td>'+subscribe_time+'</td>'
+                        		+'<td>'+company+'</td>'
+                        		+'<td>'+add_time+'</td>'
                         		+'<td>'
                         			//+'<a href="./admin.php?c=userManage&a=editUser&id='+id+'" class="btn btn-xs btn-primary">编辑</a>'
                         			+'<a href="javascript:;" class="user-detail btn btn-xs btn-primary" data-id="'+id+'">查看</a>'

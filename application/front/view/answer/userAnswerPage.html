@@ -1,0 +1,42 @@
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}答题页{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/front/answer/userAnswerPage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content" >
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/answerbg.png"/>
+        </div>
+        <div class="answer-content">
+            <div class="question-content">
+                <div class="question-title">今日答题</div>
+                <div class="question-index">第二题</div>
+                <div class="question-result"></div>
+                <div class="question-option"></div>
+                <input type="hidden" class="question-answer" value="">
+                <input type="hidden" class="answer-record-id" value="">
+                <input type="hidden" class="user-question-index" value="">
+            </div>
+            <div class="oprate-div">
+                <a class="oprate-btn" href="javascript:;" id="next" data-index ="0" >提交下一题</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="user-notic hidden">
+        <div class="notic-div">
+            <div class="notic-title">温馨提示</div>
+            <div class="notic-content">尊敬的用户你好，今天的答题（共五道题）已完成，共获得<text class="user-score">5</text>分，请明天再接再厉呦~</div>
+            <div class="notic-oprate"><a class="notic-btn" href="javascript:;">确定</a></div>
+        </div>
+
+    </div>
+</div>
+
+
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/answer/userAnswerPage.js"></script>
+{/block}

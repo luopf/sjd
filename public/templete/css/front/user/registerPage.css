@@ -1,0 +1,173 @@
+#app{
+    width: 7.5rem;
+    height: 14.34rem;
+    background-image: url('../../../../static/images/loginbg.png');
+    overflow-y: hidden;
+}
+body{
+    margin: 0rem;
+    padding: 0rem;
+}
+.content{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.content .content-bg{
+    width: 100%;
+    height:100%;
+    z-index: 10;
+}
+.content .content-bg .content-bg-img{
+    width:100%;
+    height:100%;
+}
+.content .enter-start{
+    position: absolute;
+    bottom: 4rem;
+    width: 1.7rem;
+    height: 0.6rem;
+    left: 2.95rem;
+    background-color: rgb(255, 102, 0);
+    border-radius: 0.1rem;
+
+}
+.content .enter-start .enter-start-btn{
+    position: absolute;
+    font-size: 0.24rem;
+    left: 0.35rem;
+    top: 0.14rem;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+
+}
+.content .content-div{
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 1rem;
+    //bottom: 0.2rem;
+    top: 7.9rem;
+    width: 5.83rem;
+    z-index: 48;
+    box-shadow: 0 0 30px rgba(230,63,56, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content-div .input-area{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding:0.2rem;
+    border-bottom: 1px solid #cfcfcf;
+    z-index: 1000;
+
+}
+.content-div .input-area input{
+    margin-left: 0;
+    flex: 1;
+}
+.content-div .phone-area .phone-vertify{
+    font-size: 0.24rem;
+    font-family: "PingFang";
+    color: rgb(100, 136, 255);
+    line-height: 0.4rem;
+    width: 1.3rem;
+}
+.content-div .company-area .company-arrow{
+    width: 0.2rem;
+    height: 0.3rem;
+    margin-left: 0.8rem;
+}
+.content-div .company-area .company-area-right{
+    height: 0.41rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+.content-div .company-area #company{
+    font-size: 0.24rem;
+    color: #f0f0f0;
+    width: 3.3rem;
+}
+.content-div .area-img{
+    width: 0.3rem;
+    height: 0.4rem;
+    margin-right: 0.3rem;
+}
+.content-div .phone-area .area-img{
+    width: 0.24rem;
+}
+
+.content-div input{
+    border: none;
+    outline: none;
+}
+.content-div .oprate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.2rem;
+    margin-bottom: 0.1rem;
+}
+.content-div .login-btn-area{
+    border-radius: 15px;
+    background-color: rgb(253, 112, 100);
+    width: 2.5rem;
+    height: 0.6rem;
+    z-index: 50;
+    margin-bottom: 0.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.content-div .register-btn-area{
+     border-radius: 15px;
+    background-color: rgb(149, 173, 252);
+     width: 2.5rem;
+     height: 0.6rem;
+     z-index: 50;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ }
+
+.content-div a{
+    text-decoration: none;
+    color: white;
+    font-size: 0.3rem;
+
+
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #f0f0f0;
+    border: none;
+    outline: none;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #f0f0f0;
+    border: none;
+    outline: none;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #f0f0f0;
+    border: none;
+    outline: none;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #f0f0f0;
+    border: none;
+    outline: none;
+}

@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+/*************遮罩层中的样式******************/
+.modal .table-content{
+    overflow:auto;
+    height:320px;
+}
+.modal .table-content .label-span-list{
+    float:left;
+    width:210px;
+    margin-bottom:4px;
+}
+
+.add-label-position{
+    width:800px;
+    float:left;
+}
+.label-span{
+    margin-right:15px;
+}
+.add-label-content{
+    margin-right:5px ;
+}
+.content .right-section .select{
+    display: inline-block;
+    width:20px;
+    text-align:center;
+}
+.content .right-section .select-subject-static{
+    height:30px;
+    width:240px;
+}
+.content .right-section .quit-label{
+    margin-left:5px;
+}
+.content .right-section .delete-select-content,.add-select-content{
+    margin-left:5px;
+    margin-top:-3px;
+}
+.content .right-section [class*='delete-select-content'].delete-down{
+    margin-left:8px;
+}
+.content .right-section .down{
+    margin-top:5px;
+}
+.content .right-section .content-list .select-type{
+    width:70px;
+    float:left;
+}
+.content .right-section #myForm .content-info{
+    margin-top:10px;
+}
+.content #myForm .question-desc{
+    background-color: #fff;
+    min-height: 40px;
+    border: 1px solid #a5a5a5;
+    margin-bottom: 10px;
+    padding:3px;
+}

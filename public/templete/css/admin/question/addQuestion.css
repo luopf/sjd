@@ -1,0 +1,207 @@
+@CHARSET "UTF-8";
+/****************弹出层样式*****************/
+.modal .table-content{
+    overflow:auto;
+    height:320px;
+}
+.modal .table-content .label-span-list{
+    float:left;
+    width:210px;
+    margin-bottom:4px;
+}
+/***************************************/
+.content .inner-section .testify_error{
+    color:#c00;
+}
+.add-label-position{
+    width:800px;
+    float:left;
+}
+.label-span{
+    margin-right:15px;
+}
+.add-label-content{
+    margin-right:5px ;
+}
+.content .right-section .select{
+    display: inline-block;
+    width:20px;
+    text-align:center;
+}
+.content .right-section .option-content-list{
+    float:left;
+}
+.content .right-section .select-subject-static{
+    height:30px;
+    width:240px;
+}
+.content .right-section .quit-label{
+    margin-left:5px;
+}
+.content .right-section .add-select-content{
+    margin-left:5px;
+    margin-top:-3px;
+}
+.content .right-section [class*='delete-select-content'].delete-down{
+    margin-left:8px;
+}
+.content .right-section .down{
+    margin-top:5px;
+}
+.content .right-section .content-list .select-type{
+    width:70px;
+    float:left;
+}
+
+/*******************计算分析题样式*******************/
+.content .right-section #material-result-content{
+    width:750px;
+    text-align:center;
+    margin-top:3px;
+}
+.content .right-section #material-result-content .tihao{
+    float:left;
+    width:50px;
+}
+.content .right-section #material-result-content .score{
+    width:50px;
+}
+.content .right-section #material-result-content .material-score{
+    float:right;
+    width:60px;
+}
+.content .right-section #material-result-content .material-delete-all{
+    float:right;
+    width:60px;
+}
+.content .right-section #material-result-content .contentInfo{
+    float:left;
+    text-align:left;
+    width:615px;
+}
+.content .right-section #material-result-content .option-list{
+    float:left;
+    width:790px;
+    margin-bottom:5px;
+}
+.content .right-section #material-result-content .content-list{
+    float:left;
+    margin-bottom:5px;
+}
+/********分录题********/
+.content .right-section #material-result-content .entry{
+    float:left;
+    width:250px;
+}
+.content .right-section #material-result-content .entry-name{
+    width:115px;
+}
+.content .right-section #material-result-content .money{
+    float:left;
+    width:100px;
+}
+.content .right-section #material-result-content .money-input{
+    width:60px;
+}
+.content .right-section #material-result-content .manage{
+    float:left;
+    width:120px;
+}
+.content .right-section #material-result-content .typeInfo{
+    float:left;
+    width:140px;
+}
+.content .right-section #material-result-content .delete-empty,[class*="add-entry"],[class*="del-entry"],[class*="edit-entry"]{
+    margin-left:5px;
+    margin-top:-4px;
+}
+/********计算分析题中填空题***********/
+.content .right-section #material-result-content .problem{
+    width:350px;
+    margin-right:5px;
+}
+.content .right-section #material-result-content .key{
+    width:245px;
+    margin-right:5px;
+}
+
+/*******************************案例分析题样式************************/
+.content .right-section #case-result-content .cf{
+    clear:both;
+
+}
+.content .right-section #case-result-content{
+    width:600px;
+    float:left;
+}
+.content .right-section .case-button-select{
+    width:70px;
+    float:right;
+}
+.content .right-section  .case-result-score{
+    float:left;
+    margin-left:5px;
+    margin-top:5px;
+}
+.content .right-section  .case-result-score .case-score{
+    width:30px;
+}
+.content .right-section #case-result-content .case-content-info{
+    width:325px;
+    float:left;
+}
+.content .right-section #case-result-content .case-info{
+    width:320px;
+    float:left;
+    margin-bottom:5px;
+}
+.content .right-section #case-result-content .case-result-content-list{
+    width:500px;
+    float:left;
+    margin-bottom:10px;
+}
+.content .right-section #case-result-content .case-result-content-list.bottom{
+    width:600px;
+    float:left;
+    margin-bottom:5px;
+}
+.content .right-section #case-result-content .case-content-result{
+    width:400px;
+    float:left;
+
+}
+.content .right-section #case-result-content .key-info{
+    width:45px;
+    float:left;
+}
+.content .right-section #case-result-content .case-content-analysis{
+    width:500px;
+    float:left;
+}
+/**--分录题下的选择题--**/
+.content #material-result-content .option-list .material-select-list{
+    text-align:left;
+}
+.content #material-result-content .option-list .material-select-list .material-add-select,
+.content #material-result-content .option-list .material-select-list .material-del-select{
+    margin-left: 5px;
+    margin-top: -3px;
+}
+.content #material-result-content .option-list .material-select-key{
+    position:relative;
+    padding-left:50px;
+}
+.content #material-result-content .option-list .material-select-key .key-text{
+    position:absolute;
+    left:0;
+}
+.content .right-section #myForm .table-base .content-info-list .content-info{
+    margin-top:10px;
+}
+.content #myForm .question-desc{
+    background-color: #fff;
+    min-height: 40px;
+    border: 1px solid #a5a5a5;
+    margin-bottom: 10px;
+    padding:3px;
+}

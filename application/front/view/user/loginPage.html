@@ -1,0 +1,39 @@
+
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}登录{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/front/user/loginPage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content">
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/loginbg.png"/>
+        </div>
+        <div class="content-div">
+            <form id="myForm" action="#" method="post" enctype="multipart/form-data">
+                <div class="phone-area">
+                    <img class="area-img" src="{$__IMG__}/phone.png" />
+                    <input type="text" name="phone" id="phone" class="phone input"placeholder="请输入手机号码">
+                </div>
+                <div class="password-area">
+                    <img  class="area-img" src="{$__IMG__}/password.png" />
+                    <input type="password" name="password" id="password" class="password input"placeholder="请输入密码">
+                </div>
+                <div class="oprate">
+                    <div class="login-btn-area">
+                        <a class="login-btn" href="javascript:;">登录</a>
+                    </div>
+                    <div class="register-btn-area">
+                        <a class="register-btn" href="javascript:;">注册</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/user/loginPage.js"></script>
+{/block}

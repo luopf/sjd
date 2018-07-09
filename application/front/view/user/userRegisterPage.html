@@ -1,0 +1,142 @@
+
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}注册{/block}
+{block name="page_css"}
+
+
+<link href="{$__PUBLIC__}/simplePicker/css/mui.picker.css" rel="stylesheet" />
+<link href="{$__PUBLIC__}/simplePicker/css/mui.poppicker.css" rel="stylesheet" />
+<link href="{$__TEMPLETE__}/css/front/user/registerPage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content">
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/loginbg.png"/>
+        </div>
+        <div class="content-div">
+            <form id="myForm" action="#" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="smsCode" id="smsCode" class="phone input">
+                <div class="phone-area input-area">
+                    <img class="area-img" src="{$__IMG__}/phone.png" />
+                    <input type="text" name="phone" id="phone" class="phone input"placeholder="请输入手机号码">
+                    <text class="phone-vertify">获取验证码</text>
+                </div>
+                <div class="vertify-area input-area">
+                    <img  class="area-img" src="{$__IMG__}/vertify.png" />
+                    <input type="text" name="vertify" id="vertify" class="vertify input"placeholder="请输入验证码">
+                </div>
+                <div class="user_name-area input-area">
+                    <img  class="area-img" src="{$__IMG__}/username.png" />
+                    <input type="text" name="user_name" id="user_name" class="user_name input"placeholder="请输入姓名">
+                </div>
+                <div class="company-area input-area">
+                    <img  class="area-img" src="{$__IMG__}/company.png" />
+                    <input type="hidden" name="company_id" id="company_id" class="input">
+                    <div class="company-area-right" id="companydiv">
+                        <text id="company">请选择工作单位</text>
+                        <img class="area-img company-arrow" src="{$__IMG__}/arrow.png"></img>
+                    </div>
+
+                </div>
+                <div class="password-area input-area">
+                    <img  class="area-img" src="{$__IMG__}/password.png" />
+                    <input type="password" name="password" id="password" class="password input" placeholder="请设置密码">
+                </div>
+                <div class="re-password-area input-area">
+                    <img  class="area-img" src="{$__IMG__}/repassword.png" />
+                    <input type="password" name="re-password-area" id="re-password-area" class="re-password-area input"placeholder="请再次输入密码确认">
+                </div>
+                <div class="oprate">
+                    <div class="register-btn-area">
+                        <a class="register-btn" href="javascript:;">注册并登录</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/user/registerPage.js"></script>
+<script src="{$__PUBLIC__}/simplePicker/js/mui.min.js"></script>
+<script src="{$__PUBLIC__}/simplePicker/js/mui.picker.js"></script>
+<script src="{$__PUBLIC__}/simplePicker/js/mui.poppicker.js"></script>
+{/block}
+{block name="body_js"}
+<script>
+    window.addEventListener('DOMContentLoaded',function () {
+
+
+        $.ajax(
+            {
+                type:"get",
+                url:"{$__HOST__}/index.php/front/Company/getAllCompany",
+                data:{},
+                dataType:"json",
+                success:function(json,jsonText){
+                    if(json.errorCode == 0){
+                        let data = json.data;
+                        let comData = [];
+                        for(let i = 0;i < data.length;i++){
+                            let obj = {};
+                            obj.value = data[i]['id'];
+                            obj.text = data[i]['name'];
+                            comData[i] = obj;
+                        }
+                        comData.push({ value:0, text: '其他'});
+                        console.log(comData);
+                        (function($, doc) {
+                            $.init();
+
+
+                            /**
+                             * 获取对象属性的值
+                             * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+                             * @param {Object} obj 对象
+                             * @param {String} param 属性名
+                             */
+                            var _getParam = function(obj, param) {
+                                return obj[param] || '';
+                            };
+
+                            //普通示例
+                            var userPicker = new $.PopPicker();
+                            userPicker.setData(comData);
+                            var showUserPickerButton = doc.getElementById('companydiv');
+                            var userResult = doc.getElementById('company');
+                            let company_id = doc.getElementById('company_id');
+                            let comhtml = '<input type="text" name="company" id="company" class="company input" placeholder="请输入单位名称">';
+                            showUserPickerButton.addEventListener('tap', function(event) {
+                                userPicker.show(function(items) {
+                                    if(items[0]['value'] == 0){
+                                        userResult.parentElement.innerHTML = comhtml;
+                                        company_id.setAttribute('value',items[0]['value']);
+                                        userPicker = null;
+
+                                    } else {
+                                        userResult.textContent = items[0]['text'];
+                                        company_id.setAttribute('value',items[0]['value']);
+                                    }
+
+
+                                    //return false;
+                                });
+                            }, false);
+
+
+                        })(mui, document);
+                    }
+                },
+                error:errorResponse
+            }
+        );
+
+
+    },false);
+
+
+
+</script>
+{/block}

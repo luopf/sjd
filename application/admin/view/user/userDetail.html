@@ -12,70 +12,16 @@
                     <table class="table table-striped table-hover table-bordered table-base">
                         <tbody>
                         <tr>
-                            <td>账号<label class="must-tag">&nbsp;&nbsp;</label></td>
+                            <td>用户名<label class="must-tag">&nbsp;&nbsp;</label></td>
                             <td>
-                                {$userInfo.account}
+                                {$userInfo.user_name}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>头像<label class="must-tag">&nbsp;&nbsp;</label></td>
+                            <td>注册时间<label class="must-tag">&nbsp;&nbsp;</label></td>
                             <td>
-                                <img height="30" src="{$userInfo.head_img_url}">
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>昵称<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.nick_name}
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>余额<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.balance}
-                            </td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>性别<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {if $userInfo.sex eq 1}男
-                                {elseif $userInfo.sex eq 2}女
-                                {elseif $userInfo.sex eq 0}未知
-                                {/if}
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>地址<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.country}-{$userInfo.province}--{$userInfo.city}
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>生日<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.birthday}
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>关注时间<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.subscribe_time}
-                            </td>
-                            <td></td>
-                        </tr>
-
-                        <tr style="display:none;">
-                            <td>积分<label class="must-tag">&nbsp;&nbsp;</label></td>
-                            <td>
-                                {$userInfo.points}
+                                {$userInfo.add_time}
                             </td>
                             <td></td>
                         </tr>
@@ -86,10 +32,10 @@
                             </td>
                             <td></td>
                         </tr>
-                        <tr style="display: none;">
-                            <td>最后登录时间<label class="must-tag">&nbsp;&nbsp;</label></td>
+                        <tr>
+                            <td>工作单位<label class="must-tag">&nbsp;&nbsp;</label></td>
                             <td>
-                              {$userInfo.last_login}
+                                {$userInfo.company}
                             </td>
                             <td></td>
                         </tr>

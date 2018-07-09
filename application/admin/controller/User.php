@@ -39,9 +39,9 @@ class User extends  BaseAdminController
 
     public function pagingUser(){
         $page = $this->getPageInfo($this);
-        $keyValueList = array('name'=>'like','nick_name'=>'like','subscribe'=>'=','country'=>'like','province'=>'like','city'=>'like','phone'=>'=','sex'=>'=','remark'=>'like','from_add_time'=>'>=','to_add_time'=>'<=');
+        $keyValueList = array('user_name'=>'like','phone'=>'like','company'=>'like');
         $conditionList = $this->getPagingList($this, $keyValueList);
-        $sort = "subscribe_time desc,add_time desc";
+        $sort = "add_time desc";
         $result =  $this->lib_user->pagingUser($page,$conditionList,$sort);
         echo json_encode($result);
     }

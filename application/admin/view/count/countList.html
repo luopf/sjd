@@ -1,0 +1,68 @@
+{extend name="./static/page/admin_tpl.html" /}
+
+{block name="header_title"}大话软件后台{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/admin/count/countList.css" rel="stylesheet">
+{/block}
+
+{block name="content"}
+
+<div class="col-md-12 right-section">
+    <!--内容区域-->
+    <h3>题目列表
+        <div class="operation-div">
+
+            <a class="btn btn-success" id="import_btn" href="javascript:;">导出</a>
+
+        </div>
+    </h3>
+    <div class="inner-section row">
+        <!--查询区域-->
+        <div class="search-param-panel">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="80px">
+                        <label for="company_id">公司名称:&nbsp;</label>
+                    </td>
+                    <td width="140px">
+                        <select class="select-normal" id="company_id" name="company_id">
+                            <option value="">全部</option>
+                            {foreach $companys as $company}
+                            <option value="{$company.id}">{$company.name}</option>
+                            {/foreach}
+
+                        </select>
+                    </td>
+                    <td>
+                        <div class="list-action-area">
+                            <a href="javascript:;" class="btn btn-primary btn-sm search-btn">查询</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="list-title">
+            <div class="list-title-panel">
+                <span class="glyphicon glyphicon-list">列表</span>
+                <input type="hidden" name="materialIds" id="materialIds" value="">
+                <input type="hidden" name="questionIds" id="questionIds" value="">
+
+            </div>
+        </div>
+        <div class="item table-responsive">
+            <table id="list-table" class="list-table table table-striped table-hover table-bordered table-base applylist">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <div id="page-selection"></div>
+    </div>
+</div>
+
+{/block}
+
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/admin/count/countList.js"></script>
+<script src="{$__PUBLIC__}/jquery.bootpag/jquery.bootpag.min.js"></script>
+{/block}

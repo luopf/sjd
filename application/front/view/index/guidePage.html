@@ -1,0 +1,21 @@
+
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}引导页{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/front/index/guidePage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content">
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/guidebg.png"/>
+        </div>
+        <div class="enter-start">
+            <a class="enter-start-btn" href="javascript:;">报名参赛</a>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/index/guidePage.js"></script>
+{/block}

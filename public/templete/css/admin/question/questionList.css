@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+.right-section #list-table .th1{
+    width:30px;
+}
+.right-section #list-table .th2{
+    width: 50px;
+}
+
+.right-section #list-table .th4{
+    width: 80px;
+}
+
+.right-section #list-table .th5,.th6{
+    width: 100px;
+}
+.right-section #list-table .th9{
+    width: 140px;
+}
+.right-section #list-table .th8{
+    width: 50px;
+}
+.right-section #list-table .th7{
+    width: 120px;
+}
+.right-section #list-table .th9{
+    width: 140px;
+}
+.right-section #list-table .th10{
+    width: 240px;
+}
+.limitName{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+#page-selection #paging-mode{
+    display: none;
+}

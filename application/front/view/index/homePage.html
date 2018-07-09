@@ -1,0 +1,24 @@
+
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}首页{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/front/index/homePage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content">
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/homePage.png"/>
+        </div>
+        <div class="start-question">
+            <a class="start-question-btn" href="javascript:;">开始答题</a>
+        </div>
+        <div class="charts">
+            <a class="charts-btn" href="javascript:;">排行榜</a>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/index/homePage.js"></script>
+{/block}

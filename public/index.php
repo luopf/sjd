@@ -40,12 +40,13 @@ define('ADMIN_IMAGES_PATH', __DIR__ . '/../application/admin/config/common/image
 
 define('__PUBLIC__', __DIR__ . '/../public');
 
-define('__HOST__','http://172.16.0.231/pet/public');
+define('__HOST__','http://172.16.0.231/sjd/public');
 
 define('APP_AUTO_BUILD',true); //开启自动生成
 
 define('APP_DEBUG', true);// 开启调试模式
 
+define('APP_TRACE', true);
 define('MODULE','module');
 
 

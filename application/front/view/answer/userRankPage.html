@@ -1,0 +1,29 @@
+{extend name="./static/page/front_tpl.html" /}
+{block name="header_title"}排行榜{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/front/answer/userRankPage.css" rel="stylesheet">
+{/block}
+{block name="content"}
+<div id="app">
+    <div class="content">
+        <div class="content-bg">
+            <img class="content-bg-img" src="{$__IMG__}/rankbg.png"/>
+        </div>
+        <div class="rank-content">
+            <div class="header">
+               <div class="rank">排名</div><div class="user_name">姓名</div><div class="company">所属单位</div><div class="score">得分</div>
+            </div>
+            <div class="rank-user-content">
+
+            </div>
+
+        </div>
+        <div class="user-score">当前得分:<text class="user-score-text">{$userInfo.score}</text>分</div>
+        <div class="user-rank">当前排行:<text class="user-rank-text">{if $userisrank != 0}第{$userisrank}名{else}未上榜{/if}</text></div>
+
+    </div>
+</div>
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/front/answer/userRankPage.js"></script>
+{/block}

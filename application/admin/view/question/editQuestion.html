@@ -1,0 +1,138 @@
+{extend name="./static/page/admin_tpl.html" /}
+
+{block name="header_title"}大话软件后台{/block}
+{block name="page_css"}
+<link href="{$__TEMPLETE__}/css/admin/question/editQuestion.css" rel="stylesheet">
+<link href="{$__PUBLIC__}/umeditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
+{/block}
+{block name="page_header_js"}
+<script type="text/javascript" charset="utf-8" src="{$__PUBLIC__}/umeditor/third-party/template.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$__PUBLIC__}/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$__PUBLIC__}/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="{$__PUBLIC__}/umeditor/lang/zh-cn/zh-cn.js"></script>
+{/block}
+{block name="content"}
+<div class="content">
+
+
+<div class="col-md-12 right-section">
+    <!--内容区域-->
+    <h3>修改题目</h3>
+    <div class="inner-section row">
+        <div class="items add-div">
+            <form id="myForm" action="#" method="post" enctype="multipart/form-data">
+                <div class="item table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-base">
+                        <tbody>
+
+
+                        <tr>
+                            <td>题型 <input type="hidden" name="score" class="score" value="{$question.score}">
+                                <input type="hidden" name="ago_type" class="ago-type" value="{$question.type}"><label class="must-tag">*</label></td>
+                            <td class="question-type">
+                                <span class="label-span">
+                                    <label><input type="radio" name="type" class="select-type my-iradio" value="1">单选题<span class="subject-score">1</span>分</label>
+                                </span>
+                                <span class="label-span">
+                                    <label><input type="radio" name="type" class="select-type my-iradio" value="2">多选题<span class="subject-score">1</span>分</label>
+                                </span>
+                                <span class="label-span">
+                                    <label><input type="radio" name="type" class="select-type my-iradio" value="3">判断题<span class="subject-score">1</span>分</label>
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>问题描述<input class="verify-content" name="verify_content" type="hidden"><label class="must-tag">*</label></td>
+                            <td class="content-info-list">
+                                <div class="select-content">
+                                    <div class="question-desc" id="question-desc">{$question.info}</div>
+                                    <a class="btn btn-primary btn-question-edit">编辑</a>
+                                    <div class="content-info">
+                                        {foreach $question.content as $key=>$content}
+                                       {if $key == 1}
+                                        <div class="info"><span class="select">{$content.select}</span>.&nbsp;<input type="text" class="select-label"  select_content='{$content.select_content}' value="{$content.select_content}" readonly id="{$key}"> <a class="btn btn-success btn-sm add-select-content">添加</a></div>
+                                        {else}
+                                        <div class="info down"><span class="select">{$content.select}</span>.&nbsp;<input type="text" class="select-label"  select_content='{$content.select_content}' value="{$content.select_content}" readonly id="{$key}"> <a class="btn btn-default btn-sm delete-select-content">删除</a></div>
+                                       {/if}
+                                       {/foreach}
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>答案<input class="ago-result" type="hidden" value="{$question.result}"><label class="must-tag">*</label></td>
+                            <td>
+                                <div class="result-content">
+
+                                </div>
+                                <input type="hidden" name="result" id="result" value="{$question.result}">
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>解析<label class="must-tag"></label></td>
+                            <td>
+                                <div class="question-desc" id="question-analysis">{$question.analysis}</div>
+                                <a class="btn btn-primary btn-question-edit">编辑</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="hidden" name="info" id="info" value="">
+                                <input type="hidden" name="content" id="content" value="">
+                                <input type="hidden" name="analysis" id="analysis" value="">
+                                <input type="hidden" name="id" id="id" value="{$question.id}">
+
+                                <button type="button" class="btn btn-success btn-md" id='save'>修改</button>
+                                <a class="btn btn-default btn-md" href="javascript:window.history.go(-1);">返回</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--选择会计科目标签-->
+<div class="modal fade" id="bindEntryDialog"  tabindex="-1" role="dialog"
+     aria-labelledby="myModalEntry" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">请录入答案</h4>
+            </div>
+            <div class="modal-body">
+                <div id="myContent">
+                    <div class="search-param-panel">
+                        <!-- umeditor -->
+                        <script type="text/plain" id="select_answer" name="select_answer" style="width:860px;height:200px;"></script>
+                        <script type="text/javascript">
+                        //实例化编辑器
+                        var um = UM.getEditor('select_answer');
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save_btn" id="bindSave" data-dismiss="modal">保存</button>
+                <button type="button" class="btn btn-default cancel_btn" data-dismiss="modal">取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{/block}
+{block name="page_js"}
+<script src="{$__TEMPLETE__}/js/admin/question/editQuestion.js"></script>
+{/block}
