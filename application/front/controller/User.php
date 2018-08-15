@@ -47,10 +47,10 @@ class User extends Controller
             'phone'=>$phone,
             'code'=>$code
         );
-        \ChromePhp::info($smsInfo,'===========');
+
 
        $result =  $sms->sendSms($smsInfo);
-       \ChromePhp::info($result,'短信');
+
        echo json_encode(array(
            'errorCode'=> 0,
            'errorInfo'=> '短信发送成功',

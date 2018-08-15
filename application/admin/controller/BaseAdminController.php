@@ -14,7 +14,7 @@ use think\Controller;
 class BaseAdminController extends Controller
 {
 
-    private $go = __HOST__."/index.php/admin/login/login";
+    private $go = __HOST__."/public/index.php/admin/login/login";
     //---------------------------------菜单管理-----------------------------------
     /**
      * 获取菜单

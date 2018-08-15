@@ -64,7 +64,7 @@ class UserModel extends Model
         $m_user = Db::name('base_user');
         try{
             $result = $m_user->where($conditions)->update($upInfo);
-            if(true == $result ){
+            if(false !== $result ){
                 return \common::errorArray(0, "修改成功", $result);
             }else{
                 return \common::errorArray(1, "修改失败", $result);
@@ -169,7 +169,7 @@ class UserModel extends Model
         $sqlLimit =  "{$sql}{$sort} LIMIT {$m}, {$n}";
         $sqlTotal =  "{$sql}{$sort}";
         try {
-            \ChromePhp::INFO($sqlLimit);
+
             $result['dataList'] =$m_user->query($sqlLimit);
 
             $result['sum'] = $m_user->query($sqlTotal);

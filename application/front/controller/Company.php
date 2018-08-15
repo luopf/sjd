@@ -19,7 +19,8 @@ class Company extends Controller
     }
 
     function getAllCompany(){
-        $result = $this->lib_company->findAllCompany();
+        $order = "add_time desc";
+        $result = $this->lib_company->findAllCompany($order);
         echo json_encode($result);
     }
 

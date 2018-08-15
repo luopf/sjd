@@ -24,10 +24,11 @@ class CompanyModel extends Model
         查找所有公司的信息
  */
 
-    function findAllCompany(){
+    function findAllCompany($order){
         $m_company = Db::name('user_company');
         try{
-            $result = $m_company->select();
+            $result = $m_company->order($order)->select();
+
             if(true == $result ){
                 return \common::errorArray(0, "查找成功", $result);
             }else{

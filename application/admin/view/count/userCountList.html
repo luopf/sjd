@@ -2,7 +2,7 @@
 
 {block name="header_title"}大话软件后台{/block}
 {block name="page_css"}
-<link href="{$__TEMPLETE__}/css/admin/count/countList.css" rel="stylesheet">
+<link href="{$__TEMPLETE__}/css/admin/count/userCountList.css" rel="stylesheet">
 {/block}
 
 {block name="content"}
@@ -22,20 +22,14 @@
             <table border="0" cellspacing="0" cellpadding="0">
                 <!--<tr>-->
                     <!--<td width="80px">-->
-                        <!--<label for="company_id">公司名称:&nbsp;</label>-->
+                        <!--<label for="user_name">用户名:&nbsp;</label>-->
                     <!--</td>-->
                     <!--<td width="140px">-->
-                        <!--<select class="select-normal" id="company_id" name="company_id">-->
-                            <!--<option value="">全部</option>-->
-                            <!--{foreach $companys as $company}-->
-                            <!--<option value="{$company.id}">{$company.name}</option>-->
-                            <!--{/foreach}-->
-
-                        <!--</select>-->
+                        <!--<input type="text" size="20" class="user_name search-text" id="user_name" placeholder="用户名">-->
                     <!--</td>-->
                     <!--<td>-->
                         <!--<div class="list-action-area">-->
-                            <!--<a href="javascript:;" class="btn btn-primary btn-sm search-btn">查询</a>-->
+                            <!--<a href="javascript:;" class="btn btn-primary btn-sm search-btn ">查询</a>-->
                         <!--</div>-->
                     <!--</td>-->
                 <!--</tr>-->
@@ -63,6 +57,6 @@
 {/block}
 
 {block name="page_js"}
-<script src="{$__TEMPLETE__}/js/admin/count/countList.js"></script>
+<script src="{$__TEMPLETE__}/js/admin/count/userCountList.js"></script>
 <script src="{$__PUBLIC__}/jquery.bootpag/jquery.bootpag.min.js"></script>
 {/block}

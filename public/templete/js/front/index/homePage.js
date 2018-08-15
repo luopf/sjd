@@ -2,11 +2,6 @@ $(function(){
 
     let host = getJSurl();
 
-    function userIsLogin() {
-
-    }
-    
-    
     //开始答题点击事件
     $(".start-question-btn").click(function () {
         window.location.href = host+"/index.php/front/answer/userAnswerPage";

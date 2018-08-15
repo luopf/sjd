@@ -7,6 +7,10 @@
 body{
     margin: 0rem;
     padding: 0rem;
+    overflow-x: hidden !important;
+}
+body{
+    overflow-x: hidden;
 }
 .content{
     width: 100%;

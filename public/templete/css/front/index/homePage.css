@@ -4,9 +4,12 @@
     background-image: url('../../../../static/images/homePage.png');
     overflow-y: hidden;
 }
+img{ pointer-events: none; }
 body{
     margin: 0rem;
     padding: 0rem;
+    overflow-x: hidden !important;
+    max-width: 400px;
 }
 .content{
     width: 100%;
@@ -44,11 +47,11 @@ body{
     background: yellow;
     position: absolute;
     bottom: 3.9rem;
-    left: 1.1rem;
+    left: 3.1rem;
 }
 .content .start-question .start-question-btn{
     font-size: 0.36rem;
-    width: 1.45rem;
+    width: 1.65rem;
     height: 0.5rem;
     position: absolute;
     font-family: "HYQuanTangShiJ";

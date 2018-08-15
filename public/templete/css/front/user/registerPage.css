@@ -7,7 +7,9 @@
 body{
     margin: 0rem;
     padding: 0rem;
+    overflow-x: hidden !important;
 }
+
 .content{
     width: 100%;
     height: 100%;
@@ -145,6 +147,10 @@ body{
     font-size: 0.3rem;
 
 
+}
+
+.content-div .company-area .company-area-right .compnySelected{
+    color: black;
 }
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {

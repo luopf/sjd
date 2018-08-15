@@ -4,9 +4,11 @@
     background-image: url('../../../../static/images/index.png');
     overflow-y: hidden;
 }
+img{ pointer-events: none; }
 body{
     margin: 0rem;
     padding: 0rem;
+    overflow-x: hidden !important;
 }
 .content{
     width: 100%;

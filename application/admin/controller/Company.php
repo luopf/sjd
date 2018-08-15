@@ -86,8 +86,8 @@ class Company extends BaseAdminController
         $page = $this->getPageInfo($this);
         $sort = "add_time desc";
         $conditionList = [];
-        if(input('company') != '' && input('company') != null){
-            array_push($conditionList,  array("field" => 'name',"operator" => 'like',"value" => input('company')));
+        if(input('company') != '' && input('company') != null) {
+            array_push($conditionList, array("field" => 'name', "operator" => 'like', "value" => input('company')));
         }
         $result = $this->lib_company->pagingCompany($page,$conditionList,$sort);
         echo json_encode($result);

@@ -40,6 +40,65 @@ class AnswerRecordModel extends Model
     }
 
     /**
+    *   获取用户大体记录的最大次数
+     */
+    function getUserMaxAnswerIndex($user_id){
+        $m_record = Db::name('answer_record');
+
+        $sql = "select MAX(user_answer_index) as maxIndex from answer_record WHERE user_id ={$user_id} GROUP BY user_answer_index ORDER BY maxIndex desc limit 1";
+        try{
+            $result = $m_record->query($sql);
+            $index = $result[0]['maxIndex'];
+            $index = $index ? $index : 0;
+            if(true == $result ){
+                return \common::errorArray(0, "查找成功", $index);
+            }else{
+                return \common::errorArray(1, "查找失败", $index);
+            }
+        }catch (Exception $ex){
+
+            return \common::errorArray(1, "数据库操作失败", $ex);
+        }
+    }
+
+    /**
+    *   查找单条答题记录
+     */
+    function getOneRecord($condtions){
+        $m_record = Db::name('answer_record');
+        try{
+            $result = $m_record->where($condtions)->find();
+            if(true == $result ){
+                return \common::errorArray(0, "查找成功", $result);
+            }else{
+                return \common::errorArray(1, "查找失败", $result);
+            }
+        }catch (Exception $ex){
+
+            return \common::errorArray(1, "数据库操作失败", $ex);
+        }
+    }
+
+    /**
+    *   查找当前答题次数下未答的题目
+     */
+    function findUserNoAnswerRecoed($conditions){
+        $m_record = Db::name('answer_record');
+        try{
+            $result = $m_record->where($conditions)->order('index','asc')->select();
+            \ChromePhp::info($m_record->getLastSql(),"11111");
+            if(true == $result ){
+                return \common::errorArray(0, "查找成功", $result);
+            }else{
+                return \common::errorArray(1, "查找失败", $result);
+            }
+        }catch (Exception $ex){
+
+            return \common::errorArray(1, "数据库操作失败", $ex);
+        }
+    }
+
+    /**
     *   添加答题记录
      */
     function addRecord($recordInfo){
@@ -64,7 +123,7 @@ class AnswerRecordModel extends Model
         $m_record = Db::name('answer_record');
         try{
             $result = $m_record->where($condtion)->update($upInfo);
-            if(true == $result ){
+            if(false !== $result ){
                 return \common::errorArray(0, "修改成功", $result);
             }else{
                 return \common::errorArray(1, "修改失败", $result);

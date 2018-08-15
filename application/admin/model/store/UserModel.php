@@ -40,12 +40,13 @@ class UserModel extends Model
      * @param array $oriData
      */
     function importCompanyExcel($oriData){
-        $headArr = array("公司名称","参与人数","平均得分");
+        $headArr = array("公司名称","参与人数","平均得分","当前排名");
         $data = array();
         for($i = 0;$i < count($oriData);$i++){
             $data[$i][0] = " ".$oriData[$i]['company_name'];
             $data[$i][1] = " ".$oriData[$i]['people_nums'];
             $data[$i][2] = $oriData[$i]['avg_score'] . "分";
+            $data[$i][3] = $i+1;
 //            $data[$i][3] = count(json_decode( $oriData[$i]['goods_list']));
 //            $data[$i][4] = $oriData[$i]['address_text'];
 //            if($oriData[$i]['state'] == 0){
@@ -91,12 +92,13 @@ class UserModel extends Model
      * @param array $oriData
      */
     function importExcel($oriData){
-        $headArr = array("姓名","所在公司","得分");
+        $headArr = array("姓名","所在公司","得分","当前排名");
         $data = array();
         for($i = 0;$i < count($oriData);$i++){
             $data[$i][0] = " ".$oriData[$i]['user_name'];
             $data[$i][1] = " ".$oriData[$i]['company'];
             $data[$i][2] = $oriData[$i]['score'] . "分";
+            $data[$i][3] = $i+1;
 //            $data[$i][3] = count(json_decode( $oriData[$i]['goods_list']));
 //            $data[$i][4] = $oriData[$i]['address_text'];
 //            if($oriData[$i]['state'] == 0){
@@ -513,7 +515,7 @@ class UserModel extends Model
         $sqlLimit =  "{$sql}{$sort} LIMIT {$m}, {$n}";
         $sqlTotal =  "{$sql}{$sort}";
         try {
-            \ChromePhp::INFO($sqlLimit);
+
             $result['dataList'] =$m_user->query($sqlLimit);
 
             $result['sum'] = $m_user->query($sqlTotal);
@@ -547,7 +549,6 @@ class UserModel extends Model
      */
 
     function pagingCount($page,$conditionList,$sort = '',$orList = null){
-        \ChromePhp::info($conditionList,"1111");
         $m_user = Db::name('base_user');
         $page['pageIndex'] ? $pageIndex = $page['pageIndex'] : $pageIndex = 1;
         $page['pageSize'] ? $pageSize = $page['pageSize'] : $pageSize = 10;
@@ -589,15 +590,15 @@ class UserModel extends Model
             }
             $whereString = rtrim($whereString,"AND");
 
-            $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta WHERE{$whereString} ";
+            $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta WHERE{$whereString} ORDER BY avg_score desc ";
             if($orString){
                 $sql = "{$sql}AND {$orString} ";
             }
         }else{
             if($orString){
-                $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta WHERE {$orString}";
+                $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta WHERE {$orString} ORDER BY avg_score desc";
             }else{
-                $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta ";
+                $sql = "SELECT * FROM (select company_id, COUNT(id) as people_nums,AVG(score) as avg_score, company as company_name from base_user GROUP BY company_id) as ta ORDER BY avg_score desc ";
             }
         }
         //排序

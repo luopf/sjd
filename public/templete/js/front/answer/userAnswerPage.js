@@ -5,14 +5,39 @@ $(function(){
    // let index = 0;
 
     function init() {
+        // 进入答题页先分配答题记录后答题
+        pageDataInit();
 
-        render();
         bindEvent();
 
 
 
     }
+    function pageDataInit() {
 
+        $.ajax({
+            async: true,
+            type: 'post',
+            url: host + '/index.php/front/answer/isWriteToRecord',
+            dataType: 'json',
+            success: function (json) {
+                if(json.errorCode == 0){// 需要写入答题
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        url: host + '/index.php/front/answer/wirteUserAnswerRecord',
+                        dataType: 'json',
+                        success: function (json) {
+                            render();
+                        },
+                    })
+
+                } else {//不需要写入答题
+                    render();
+                }
+            }
+        })
+    }
     function selectInfo() {
         //let index = $("#next").attr('data-index');
         let selectInfo = {
@@ -26,21 +51,49 @@ $(function(){
 
     function render() {
         let data = selectInfo();
+
         $.ajax({
-            async:true,
-            type:'post',
-            url:host+'/index.php/front/answer/pagingUserAnswer',
-            data:data,//从1开始计数
-            dataType:'json',
-            success:function(json){
-                console.log(json,111);
-                if(json.length == 0){
-                    // 获取用户当天答题分数
+        async:true,
+        type:'post',
+        url:host+'/index.php/front/answer/pagingUserAnswer',
+        data:data,//从1开始计数
+        dataType:'json',
+        success:function(json){
+            if(json.errorCode == 4){// 用户答完所有的题
+                let score = json.data;
+                $(".user-notic .notic-div .notic-content .userbox-notic").text("已经使用了所有的答题机会，综合三次答题情况，取三次答题最高分");
+                $(".user-notic .notic-div .notic-content .user-score").text(score);
+                $(".user-notic").removeClass("hidden");
+            }
+            if(json.errorCode == 3){ // 超时了
+                // 获取用户当天答题分数
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    url: host + '/index.php/front/answer/getUserScore',
+                    dataType: 'json',
+                    success: function (json) {
+                        if(json.errorCode == 0){ // 查找成功
+                            let score = json.data;
+                            $(".user-notic .notic-div .notic-content .userbox-notic").text("本次答题超时系统将自动判分");
+                            $(".user-notic .notic-div .notic-content .user-score").text(score);
+                            $(".user-notic").removeClass("hidden");
+
+                        }
+                    },
+                    error:errorResponse
+                })
+
+                return false;
+            }
+
+
+            if(json.length == 0){
+               // 获取用户本次答题分数
                     $.ajax({
                         async: true,
                         type: 'post',
-                        url: host + '/index.php/front/answer/getUserDayScore',
-                        data: data,//从1开始计数
+                        url: host + '/index.php/front/answer/getUserScore',
                         dataType: 'json',
                         success: function (json) {
                             if(json.errorCode == 0){ // 查找成功
@@ -54,104 +107,99 @@ $(function(){
                     })
 
                     return false;
-                }
-                let resultHtml = '';
-                let oprateHtml = '';
-                console.log(json);
-                let id = json.id;// 答题记录的id
-                let index = json.index;
-                let obj = json.questionInfo;
-
-
-                let q_id = obj.id;// 题目id
-                let info = obj.info;// 题目内容
-                let result = obj.result;// 题目答案
-                console.log(result);
-                let content = obj.content;// 题目的选项
-                console.log(json);
-                let type = obj.type;// 题目的类型
-                questionType = type;
-                let indexText = '';
-                if(index == 1 || index == '1'){
-                    indexText = "第一题";
-                } else if(index == 2 || index == '2'){
-                    indexText = "第二题";
-                } else if(index == 3 || index == '3'){
-                    indexText = "第三题";
-                } else if(index == 4 || index == '4'){
-                    indexText = "第四题";
-                } else if(index == 5 || index == '5'){
-                    indexText = "第五题";
-                }
-                let typeText = '';
-                if(type == 1 || type == '1'){
-                    typeText = '<Text class="question-type-text">单选</Text>';
-                } else if(type == 2 || type == '2'){
-                    typeText = '<Text class="question-type-text">多选</Text>';
-                } else if(type == 3 || type == '3'){
-                    typeText = '<Text class="question-type-text">判断</Text>';
-                }
-                if(type == 1 || type == 2){ // 单选或多选题
-                    if(content instanceof(Array)  && content.length != 0){
-                        for(let i = 0;i< content.length;i++){
-                            let selectobj = content[i];
-                            let select = selectobj.select;
-                            let select_text = selectobj.select_content;
-                            let selectRow = '<div class="select-row"><div class="select-section">'+select+'</div><div class="select-content">'+select_text+'</div></div>';
-                            oprateHtml += selectRow;
-                        }
-
-                    }
-                } else {// 判断题
-                    oprateHtml += '<div class="select-row"><div class="select-section" data="1">√</div><div class="select-content">正确</div></div>';
-                    oprateHtml += '<div class="select-row"><div class="select-section" data="0">×</div><div class="select-content">错误</div></div>';
-                }
-
-
-                resultHtml += '<p class="question-info">'+info+'</p>';
-
-
-
-                $(".content .question-content .question-index").html(indexText);
-                $(".content .question-content .question-result").html(typeText + resultHtml);
-                $(".content .question-content .question-option").html(oprateHtml);
-                $(".content .question-content .question-answer").val(result);
-                $(".content .question-content .answer-record-id").val(id);
-                $(".content .question-content .user-question-index").val(index);
-                    // 选择选项卡切换
-                $(".select-row").click(function () {
-                    let that = $(this);
-                    let selectDom =  that.children(".select-section");
-                    if(questionType == 1){// 单选题
-                        that.addClass("selected").siblings().removeClass("selected");
-                        selectDom.addClass("selected").parents().siblings().children(".select-section").removeClass("selected");
-
-                    } else if(questionType == 2){ // 多选题
-                        if(that.hasClass("selected")){
-                            selectDom.removeClass('selected');
-                            that.removeClass('selected');
-
-                        } else {
-                            selectDom.addClass('selected');
-                            that.addClass('selected');
-                        }
-                    } else if(questionType == 3){ // 判断题
-                        that.addClass("selected").siblings().removeClass("selected");
-                        selectDom.addClass("selected").parents().siblings().children(".select-section").removeClass("selected");
+            }
+            let resultHtml = '';
+            let oprateHtml = '';
+            console.log(json,"当前题目");
+            let id = json.id;// 答题记录的id
+            let index = json.index;
+            let obj = json.questionInfo;
+            let q_id = obj.id;// 题目id
+            let info = obj.info;// 题目内容
+            let result = obj.result;// 题目答案
+            let content = obj.content;// 题目的选项
+            let type = obj.type;// 题目的类型
+            questionType = type;
+            let indexText = '';
+            if(index != null && index != undefined && index != ''){
+                indexText = "第"+index+"题" ;
+            }
+            let typeText = '';
+            if(type == 1 || type == '1'){
+                typeText = '<Text class="question-type-text">单选</Text>';
+            } else if(type == 2 || type == '2'){
+                typeText = '<Text class="question-type-text">多选</Text>';
+            } else if(type == 3 || type == '3'){
+                typeText = '<Text class="question-type-text">判断</Text>';
+            }
+            if(type == 1 || type == 2){ // 单选或多选题
+                if(content instanceof(Array)  && content.length != 0){
+                    for(let i = 0;i< content.length;i++){
+                        let selectobj = content[i];
+                        let select = selectobj.select;
+                        let select_text = selectobj.select_content;
+                        let selectRow = '<div class="select-row"><div class="select-section">'+select+'</div><div class="select-content">'+select_text+'</div></div>';
+                        oprateHtml += selectRow;
                     }
 
+                }
+            } else {// 判断题
+                oprateHtml += '<div class="select-row"><div class="select-section" data="1">√</div><div class="select-content">正确</div></div>';
+                oprateHtml += '<div class="select-row"><div class="select-section" data="0">×</div><div class="select-content">错误</div></div>';
+            }
 
 
-                })
+            resultHtml += '<p class="question-info">'+typeText+info+'</p>';
+
+
+
+            $(".content .question-content .question-index").html(indexText);
+            $(".content .question-content .question-result").html(resultHtml);
+            $(".content .question-content .question-option").html(oprateHtml);
+            $(".content .question-content .question-answer").val(result);
+            $(".content .question-content .answer-record-id").val(id);
+            $(".content .question-content .user-question-index").val(index);
+            // 选择选项卡切换
+            $(".select-row").click(function () {
+                let that = $(this);
+                let selectDom =  that.children(".select-section");
+                if(questionType == 1){// 单选题
+                    that.addClass("selected").siblings().removeClass("selected");
+                    selectDom.addClass("selected").parents().siblings().children(".select-section").removeClass("selected");
+
+                } else if(questionType == 2){ // 多选题
+                    if(that.hasClass("selected")){
+                        selectDom.removeClass('selected');
+                        that.removeClass('selected');
+
+                    } else {
+                        selectDom.addClass('selected');
+                        that.addClass('selected');
+                    }
+                } else if(questionType == 3){ // 判断题
+                    that.addClass("selected").siblings().removeClass("selected");
+                    selectDom.addClass("selected").parents().siblings().children(".select-section").removeClass("selected");
+                }
+
+
+
+            })
 
 
 
 
 
 
-            },
-            error:errorResponse
-        });
+        },
+        error:errorResponse
+    });
+
+
+
+
+
+
+
     }
 
 
@@ -161,8 +209,12 @@ $(function(){
 
         // 提交下一题
         $("#next").click(function () {
+            let isSelect = $(".select-row.selected");
 
-
+            if(isSelect.length == 0){
+                alert("您还没有选择！");
+                return false;
+            }
             let that = $(this);
             let sysResult = $(".content .question-content .question-answer").val();
             let rid = $(".content .question-content .answer-record-id").val();
@@ -243,6 +295,51 @@ $(function(){
             },
             dataType: 'json',
             success: function (json) {
+                console.log(json,"提交完答题结果后返回的数据");
+                if(json.errorCode == 3){ // 超时了
+                    // 获取用户当天答题分数
+                    $.ajax({
+                        async: true,
+                        type: 'post',
+                        url: host + '/index.php/front/answer/getUserScore',
+                        dataType: 'json',
+                        success: function (json) {
+                            if(json.errorCode == 0){ // 查找成功
+                                let score = json.data;
+                                $(".user-notic .notic-div .notic-content .userbox-notic").text("本次答题超时系统将自动判分");
+                                $(".user-notic .notic-div .notic-content .user-score").text(score);
+                                $(".user-notic").removeClass("hidden");
+
+                            }
+                        },
+                        error:errorResponse
+                    })
+
+                    return false;
+                }
+
+                if(json == null){
+                    //获取用户当天答题分数
+                        $.ajax({
+                            async: true,
+                            type: 'post',
+                            url: host + '/index.php/front/answer/getUserScore',
+                            data: data,//从1开始计数
+                            dataType: 'json',
+                            success: function (json) {
+                                if(json.errorCode == 0){ // 查找成功
+                                    let score = json.data;
+                                    $(".user-notic .notic-div .notic-content .user-score").text(score);
+                                    $(".user-notic").removeClass("hidden");
+
+                                }
+                            },
+                            error:errorResponse
+                        })
+
+                        return false;
+                }
+
                 if(json.errorCode == 0){// 提交成功 ，进行下一题
                     let index = $("#next").attr('data-index');
                     index =  parseInt(index);

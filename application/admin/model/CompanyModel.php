@@ -164,6 +164,7 @@ class CompanyModel extends Model
         $sqlLimit =  "{$sql}{$sort} LIMIT {$m}, {$n}";
         $sqlTotal =  "{$sql}{$sort}";
         try {
+
             $result['dataList'] =$m_company->query($sqlLimit);
 
             $result['sum'] = $m_company->query($sqlTotal);

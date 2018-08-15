@@ -105,8 +105,10 @@ $(function(){
             success:function(json,statusText){
                 if(json.errorCode == 0){// 注册成功跳到登录页
                     window.location.href = host+"/index.php/front/user/loginPage";
-                } else {// 注册失败
-                    responseTip(1,json.errorInfo,2000);
+                } else{// 注册失败
+                    responseTip(json.errorCode,json.errorInfo,2000,function () {
+                        window.location.href = host+"/index.php/front/user/loginPage";
+                    });
                 }
             },
             error:errorResponse

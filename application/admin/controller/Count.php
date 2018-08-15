@@ -30,13 +30,22 @@ class Count extends BaseAdminController
     }
 
     /**
-    * 统计列表
+    * 公司统计列表
      */
     function countList(){
         $companys = $this->lib_company->findAllCompany();
         $this->assign('companys',$companys['data']);
         $this->assign(config('config.view_replace_str'));
         return $this->fetch('countList');
+    }
+
+    /**
+     * 用户统计列表
+     */
+    function userCountList(){
+
+        $this->assign(config('config.view_replace_str'));
+        return $this->fetch('userCountList');
     }
 
 
@@ -50,9 +59,25 @@ class Count extends BaseAdminController
             array_push($conditionList,  array("field" => 'company_id',"operator" => '=',"value" => input('company_id')));
         }
         $result = $this->lib_user->pagingCount($page,$conditionList);
-        \ChromePhp::info($result);
+
         echo json_encode($result);
     }
+    /**
+     *   分页展示统计列表
+     */
+    function pagingUserCount(){
+        $page = $this->getPageInfo($this);
+        $conditionList = [];
+        if(input('user_name') != '' && input('user_name') != null){
+            array_push($conditionList,  array("field" => 'user_name',"operator" => 'like',"value" => input('user_name')));
+        }
+        $sort = "score desc";
+        $result = $this->lib_user->pagingUser($page,$conditionList,$sort);
+
+        echo json_encode($result);
+    }
+
+
 
     /**
     *   统计详情列表
@@ -79,7 +104,6 @@ class Count extends BaseAdminController
         }
         $sort = "score desc";
 
-
         $result = $this->lib_user->findAllUsers($conditions,$keywords,$sort);
         $this->lib_user->importExcel($result['data']['dataList']);
 
@@ -94,8 +118,8 @@ class Count extends BaseAdminController
         if(input('company_id') != '' && input('company_id') != null){
             $conditions['company_id'] = input('company_id');
         }
-        $result = $this->lib_user->findAllCompanyScore($conditions,$keywords);
-
+        $sort = "avg_score desc";
+        $result = $this->lib_user->findAllCompanyScore($conditions,$keywords,$sort);
         $this->lib_user->importCompanyExcel($result['data']['dataList']);
     }
 
@@ -115,7 +139,6 @@ class Count extends BaseAdminController
         }
 
         $result = $this->lib_user->pagingUser($page,$conditionList,$sort);
-        \ChromePhp::info($result);
         echo json_encode($result);
     }
 

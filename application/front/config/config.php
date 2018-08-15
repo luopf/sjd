@@ -1,6 +1,6 @@
 <?php
 //配置文件
-$root = 'http://172.16.0.231/sjd/public';
+$root = 'http://192.168.235.1/sjd/public';
 return [
     'view_replace_str'  => [
             '__JS__' => $root.'/static/js',

@@ -15,8 +15,6 @@ $(function(){
         $('#import_btn').click(function() {
 
             var selectInfo = getSelectInfo();
-            selectInfo.pageIndex = currentPage;
-            selectInfo.pageSize = pageSize;
             // $.ajax(
             //     {
             //         type: "get",
@@ -30,7 +28,7 @@ $(function(){
             //     })
 
             var data = $.param(selectInfo);
-            window.location.href = host+"/index.php/admin/count/importCompanyExcel?"+data;
+            window.location.href = host+"/index.php/admin/count/importExcel?"+data;
         });
 
 
@@ -211,9 +209,11 @@ $(function(){
      */
     function getSelectInfo(){
 
-        var company_id = $.trim($(".inner-section .search-param-panel #company_id").val());
+        // var company_id = $.trim($(".inner-section .search-param-panel #company_id").val());
+        var user_name = $.trim($(".inner-section .search-param-panel #user_name").val());
         var selectInfo = {
-            "company_id":company_id,
+            // "company_id":company_id,
+            "user_name":user_name,
         };
         return selectInfo;
     }
@@ -230,7 +230,7 @@ $(function(){
         $.ajax({
             async:async,
             type:'post',
-            url:host+'/index.php/admin/Count/pagingCount',
+            url:host+'/index.php/admin/Count/pagingUserCount',
             data:selectInfo,//从1开始计数
             dataType:'json',
             success:function(result){
@@ -239,32 +239,33 @@ $(function(){
                     total = result.data.pageInfo.total_page;
                     total_count = result.data.pageInfo.total_count;
                     let current_page = parseInt(result.data.pageInfo.current_page);
+
                     $("#page-selection").bootpag({total:total,total_count:total_count});//重新计算总页数,总记录数
 
                     currentPage = result.data.pageInfo.current_page;
                     var userList = result.data.dataList;
 
-                    html+='<tr><th class="th1">序号</th><th class="th3">公司名称</th><th class="th10">参与人数</th><th class="th10">平均得分</th><th class="th10">当前排名</th><th class="th11">操作</th></tr>';
+                    html+='<tr><th class="th1">序号</th><th class="th3">用户名</th><th class="th10">所属公司</th><th class="th10">用户得分</th><th class="th10">当前排名</th></tr>';
                     var colspan = $(html).find("th").length;
                     for(var i = 0; i < userList.length;i++){
                         var obj = userList[i];
                         var number = (pageIndex - 1)*pageSize + i + 1;//序号
 
-                        var company_name = obj.company_name?obj.company_name:"--"; // 公司名
-                        var people_nums = obj.people_nums ? obj.people_nums:0;// 公司人数
-                        var avg_score = obj.avg_score ? obj.avg_score : 0;// 平均分
-                        var id = obj.company_id;// 公司id
+                        var user_name = obj.user_name?obj.user_name:"--"; //用户名
+                        var company = obj.company?obj.company:"--"; //所属公司
+                        var score = obj.score?obj.score:0; //得分
+
                         var index = (current_page -1)*10+(i+1);// 当前排名
                         html+='<tr>'
                         		+'<td>'+number+'</td>'
-                        		+'<td><span class="limit-text" title="'+name+'">'+company_name+'</span></td>'
-                                +'<td>'+people_nums+'</td>'
-                        		+'<td>'+avg_score+'</td>'
+                        		+'<td><span class="limit-text" title="'+name+'">'+user_name+'</span></td>'
+                                +'<td>'+company+'</td>'
+                        		+'<td>'+score+'</td>'
                                 +'<td>'+index+'</td>'
-                        		+'<td>'
-                        			+'<a href="javascript:;" class="count-detail btn btn-xs btn-primary" data-id="'+id+'">查看</a>'
-                                    // +'<a href="javascript:;" class="btn btn-xs delete btn-danger" data-id="'+id+'">删除</a>'
-                        		+'</td>'
+                        		// +'<td>'
+                        		// 	+'<a href="javascript:;" class="count-detail btn btn-xs btn-primary" data-id="'+id+'">查看</a>'
+                                 //    // +'<a href="javascript:;" class="btn btn-xs delete btn-danger" data-id="'+id+'">删除</a>'
+                        		// +'</td>'
                     		+'</tr>';
                     }
                     if(userList.length == 0){
